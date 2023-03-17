@@ -15,6 +15,7 @@ return [
             'media-single' => Service\BlockLayout\MediaSingleFactory::class,
             'two-column' => Service\BlockLayout\TwoColumnFactory::class,
             'three-column' => Service\BlockLayout\ThreeColumnFactory::class,
+            'four-column' => Service\BlockLayout\FourColumnFactory::class,
             'topics-list' => Service\BlockLayout\TopicsListFactory::class
         ],
     ],
@@ -29,6 +30,7 @@ return [
             Form\MediaSingleForm::class => Form\MediaSingleForm::class,
             Form\TwoColumnForm::class => Form\TwoColumnForm::class,
             Form\ThreeColumnForm::class => Form\ThreeColumnForm::class,
+            Form\FourColumnForm::class => Form\FourColumnForm::class,
             Form\TopicsListForm::class => Form\TopicsListForm::class,
             Form\TopicsListSidebarForm::class => Form\TopicsListSidebarForm::class
         ],

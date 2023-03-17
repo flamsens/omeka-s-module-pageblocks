@@ -7,10 +7,9 @@ use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
 use Laminas\Form\FormElementManager;
 use Laminas\View\Renderer\PhpRenderer;
-use PageBlocks\Form\ThreeColumnForm;
-use PageBlocks\Form\TwoColumnForm;
+use PageBlocks\Form\FourColumnForm;
 
-class ThreeColumn extends AbstractBlockLayout
+class FourColumn extends AbstractBlockLayout
 {
     /**
      * The default partial view script.
@@ -32,13 +31,13 @@ class ThreeColumn extends AbstractBlockLayout
     
     public function getLabel()
     {
-        return 'Three column HTML'; // @translate
+        return 'Four column HTML'; // @translate
     }
 
     public function form(PhpRenderer $view, SiteRepresentation $site,
         SitePageRepresentation $page = null, SitePageBlockRepresentation $block = null
     ) {
-        $form = $this->formElementManager->get(TwoColumnForm::class);
+        $form = $this->formElementManager->get(FourColumnForm::class);
         $defaultSettings = [];
 
         $data = $block ? $block->data() + $defaultSettings : $defaultSettings;
@@ -59,13 +58,15 @@ class ThreeColumn extends AbstractBlockLayout
                 $block->dataValue('html1'),
                 $block->dataValue('html2'),
                 $block->dataValue('html3'),
+                $block->dataValue('html4'),
             ],
             'columnClasses' => [
                 $block->dataValue('col1class'),
                 $block->dataValue('col2class'),
                 $block->dataValue('col3class'),
+                $block->dataValue('col4class'),
             ],
-            'divclass' => $block->dataValue('divclass'),
+            'divclass' => $block->dataValue('divclass')
         ];
 
         $template = $block->dataValue('template', self::PARTIAL_NAME);

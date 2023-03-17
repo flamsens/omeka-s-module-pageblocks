@@ -1,13 +1,11 @@
 <?php
-
 $assetUrl = $this->plugin('assetUrl');
 $this->headLink()->appendStylesheet($assetUrl('css/style.css', 'PageBlocks'));
-
 ?>
 
-<section class="col-container">
-    <?php foreach ($columns as $column): ?>
-        <div class="col-single">
+<section class="col-container <?= $divclass ?? ''?>">
+    <?php foreach ($columns as $index => $column): ?>
+        <div class="col-single <?= $columnClasses[$index] ?? '' ?>">
             <?= $column ?>
         </div>
     <?php endforeach; ?>
