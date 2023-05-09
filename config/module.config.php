@@ -16,7 +16,8 @@ return [
             'two-column' => Service\BlockLayout\TwoColumnFactory::class,
             'three-column' => Service\BlockLayout\ThreeColumnFactory::class,
             'four-column' => Service\BlockLayout\FourColumnFactory::class,
-            'topics-list' => Service\BlockLayout\TopicsListFactory::class
+            'topics-list' => Service\BlockLayout\TopicsListFactory::class,
+            'anchor' => Service\BlockLayout\AnchorFactory::class
         ],
     ],
     'resource_page_block_layouts' => [
@@ -26,6 +27,7 @@ return [
     ],
     'form_elements' => [
         'invokables' => [
+            Form\AnchorForm::class => Form\AnchorForm::class,
             Form\JumbotronSearchForm::class => Form\JumbotronSearchForm::class,
             Form\MediaSingleForm::class => Form\MediaSingleForm::class,
             Form\TwoColumnForm::class => Form\TwoColumnForm::class,

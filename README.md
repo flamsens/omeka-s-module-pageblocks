@@ -9,6 +9,7 @@ The currently available page blocks are:
 * Two column HTML
 * Three column HTML
 * List of topics
+* Anchor
 
 There are also resource page blocks available:
 
