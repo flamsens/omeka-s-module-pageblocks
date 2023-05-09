@@ -1,11 +1,12 @@
 <?php
 namespace PageBlocks\Site\BlockLayout;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Helper\Partial;
 use Omeka\Site\BlockLayout\AbstractBlockLayout;
 use Omeka\Api\Representation\SiteRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
-use Laminas\Form\FormElementManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PageBlocks\Form\FourColumnForm;
 
@@ -16,20 +17,14 @@ class FourColumn extends AbstractBlockLayout
      */
     const PARTIAL_NAME = 'common/block-layout/multi-column';
 
-    /**
-     * @var FormElementManager
-     */
-    protected $formElementManager;
+    protected ServiceLocatorInterface $formElementManager;
     
-    /**
-     * @param FormElementManager $formElementManager
-     */
-    public function __construct(FormElementManager $formElementManager)
+    public function __construct(ServiceLocatorInterface $formElementManager)
     {
         $this->formElementManager = $formElementManager;
     }
     
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'Four column HTML'; // @translate
     }
@@ -51,7 +46,7 @@ class FourColumn extends AbstractBlockLayout
         return $view->formCollection($form);
     }
 
-    public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
+    public function render(PhpRenderer $view, SitePageBlockRepresentation $block): Partial|string
     {
         $vars = [
             'columns' => [

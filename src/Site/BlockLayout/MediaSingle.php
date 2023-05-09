@@ -1,37 +1,33 @@
 <?php
 namespace PageBlocks\Site\BlockLayout;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Omeka\Site\BlockLayout\AbstractBlockLayout;
 use Omeka\Api\Representation\SiteRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
-use Laminas\Form\FormElementManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PageBlocks\Form\MediaSingleForm;
 
 class MediaSingle extends AbstractBlockLayout
 {
-    /**
-     * @var FormElementManager
-     */
-    protected $formElementManager;
+
+    protected ServiceLocatorInterface $formElementManager;
     
-    /**
-     * @param FormElementManager $formElementManager
-     */
-    public function __construct(FormElementManager $formElementManager)
+    public function __construct(ServiceLocatorInterface $formElementManager)
     {
         $this->formElementManager = $formElementManager;
     }
     
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'Media + single column'; // @translate
     }
 
     public function form(PhpRenderer $view, SiteRepresentation $site,
         SitePageRepresentation $page = null, SitePageBlockRepresentation $block = null
-    ) {
+    ): string
+    {
         $form = $this->formElementManager->get(MediaSingleForm::class);
             
         if ($block && $block->data()) {
@@ -49,7 +45,7 @@ class MediaSingle extends AbstractBlockLayout
         return $html;
     }
 
-    public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
+    public function render(PhpRenderer $view, SitePageBlockRepresentation $block): \Laminas\View\Helper\Partial|string
     {
         return $view->partial('common/block-layout/media-single', [
             'html' => $block->dataValue('html'),
@@ -57,4 +53,3 @@ class MediaSingle extends AbstractBlockLayout
         ]);
     }
 }
-?>

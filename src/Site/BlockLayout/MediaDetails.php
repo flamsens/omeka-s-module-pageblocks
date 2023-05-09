@@ -1,42 +1,38 @@
 <?php
 namespace PageBlocks\Site\BlockLayout;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Omeka\Site\BlockLayout\AbstractBlockLayout;
 use Omeka\Api\Representation\SiteRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
-use Laminas\Form\FormElementManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PageBlocks\Form\MediaDetailsForm;
 
 class MediaDetails extends AbstractBlockLayout
 {
-    /**
-     * @var FormElementManager
-     */
-    protected $formElementManager;
+
+    protected ServiceLocatorInterface $formElementManager;
     
-    /**
-     * @param FormElementManager $formElementManager
-     */
-    public function __construct(FormElementManager $formElementManager)
+    public function __construct(ServiceLocatorInterface $formElementManager)
     {
         $this->formElementManager = $formElementManager;
     }
     
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'Media embed + details'; // @translate
     }
     
-    public function prepareForm(PhpRenderer $view)
+    public function prepareForm(PhpRenderer $view): void
     {
         $view->headScript()->appendFile($view->assetUrl('js/media-details.js', 'PageBlocks'));
     }
 
     public function form(PhpRenderer $view, SiteRepresentation $site,
         SitePageRepresentation $page = null, SitePageBlockRepresentation $block = null
-    ) {        
+    ): string
+    {
         $form = $this->formElementManager->get(MediaDetailsForm::class);
             
         if ($block && $block->data()) {
@@ -55,7 +51,7 @@ class MediaDetails extends AbstractBlockLayout
         return $html;
     }
 
-    public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
+    public function render(PhpRenderer $view, SitePageBlockRepresentation $block): \Laminas\View\Helper\Partial|string
     {
         return $view->partial('common/block-layout/media-details', [
             'attachments' => $block->attachments(),
@@ -64,4 +60,3 @@ class MediaDetails extends AbstractBlockLayout
         ]);
     }
 }
-?>

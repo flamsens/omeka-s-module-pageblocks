@@ -1,30 +1,24 @@
 <?php
 namespace PageBlocks\Site\BlockLayout;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Omeka\Site\BlockLayout\AbstractBlockLayout;
 use Omeka\Api\Representation\SiteRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
-use Laminas\Form\FormElementManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PageBlocks\Form\JumbotronSearchForm;
 
 class JumbotronSearch extends AbstractBlockLayout
 {
-    /**
-     * @var FormElementManager
-     */
-    protected $formElementManager;
+    protected ServiceLocatorInterface $formElementManager;
     
-    /**
-     * @param FormElementManager $formElementManager
-     */
-    public function __construct(FormElementManager $formElementManager)
+    public function __construct(ServiceLocatorInterface $formElementManager)
     {
         $this->formElementManager = $formElementManager;
     }
     
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'Jumbotron search'; // @translate
     }
@@ -44,7 +38,7 @@ class JumbotronSearch extends AbstractBlockLayout
         return $view->formCollection($form);
     }
 
-    public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
+    public function render(PhpRenderer $view, SitePageBlockRepresentation $block): \Laminas\View\Helper\Partial|string
     {
         return $view->partial('common/block-layout/jumbotron-search', [
             'header' => $block->dataValue('header'),
@@ -52,4 +46,3 @@ class JumbotronSearch extends AbstractBlockLayout
         ]);
     }
 }
-?>

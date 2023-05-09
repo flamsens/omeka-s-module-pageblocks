@@ -1,36 +1,31 @@
 <?php
 namespace PageBlocks\Site\BlockLayout;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Omeka\Site\BlockLayout\AbstractBlockLayout;
 use Omeka\Api\Representation\SiteRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
-use Laminas\Form\FormElementManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PageBlocks\Form\TopicsListForm;
 use PageBlocks\Form\TopicsListSidebarForm;
 
 class TopicsList extends AbstractBlockLayout
 {
-    /**
-     * @var FormElementManager
-     */
-    protected $formElementManager;
+
+    protected ServiceLocatorInterface $formElementManager;
     
-    /**
-     * @param FormElementManager $formElementManager
-     */
-    public function __construct(FormElementManager $formElementManager)
+    public function __construct(ServiceLocatorInterface $formElementManager)
     {
         $this->formElementManager = $formElementManager;
     }
     
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'List of topics'; // @translate
     }
     
-    public function prepareForm(PhpRenderer $view)
+    public function prepareForm(PhpRenderer $view): void
     {
         $view->headLink()->prependStylesheet($view->assetUrl('css/advanced-search.css', 'Omeka'));
         $view->headScript()->appendFile($view->assetUrl('js/advanced-search.js', 'Omeka'));
@@ -42,7 +37,8 @@ class TopicsList extends AbstractBlockLayout
 
     public function form(PhpRenderer $view, SiteRepresentation $site,
         SitePageRepresentation $page = null, SitePageBlockRepresentation $block = null
-    ) {
+    ): string
+    {
         $form = $this->formElementManager->get(TopicsListForm::class);
             
         if ($block && $block->data()) {
@@ -58,7 +54,7 @@ class TopicsList extends AbstractBlockLayout
         ]);
     }
 
-    public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
+    public function render(PhpRenderer $view, SitePageBlockRepresentation $block): \Laminas\View\Helper\Partial|string
     {
         return $view->partial('common/block-layout/topics-list', [
             'header' => $block->dataValue('header'),
@@ -68,4 +64,3 @@ class TopicsList extends AbstractBlockLayout
         ]);
     }
 }
-?>

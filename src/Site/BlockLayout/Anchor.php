@@ -6,7 +6,6 @@ use Omeka\Site\BlockLayout\AbstractBlockLayout;
 use Omeka\Api\Representation\SiteRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
-use Laminas\Form\FormElementManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PageBlocks\Form\AnchorForm;
 
@@ -19,12 +18,12 @@ class Anchor extends AbstractBlockLayout
         $this->formElementManager = $formElementManager;
     }
     
-    public function getLabel()
+    public function getLabel(): string
     {
         return 'Anchor'; // @translate
     }
     
-    public function prepareForm(PhpRenderer $view)
+    public function prepareForm(PhpRenderer $view): void
     {
         $view->headScript()->appendFile($view->assetUrl('js/jquery.charReplacer.js', 'PageBlocks'));
     }
@@ -46,7 +45,7 @@ class Anchor extends AbstractBlockLayout
         return $view->formCollection($form);
     }
 
-    public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
+    public function render(PhpRenderer $view, SitePageBlockRepresentation $block): \Laminas\View\Helper\Partial|string
     {
         return $view->partial('common/block-layout/anchor', [
             'anchor' => $block->dataValue('anchor')
