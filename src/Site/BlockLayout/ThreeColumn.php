@@ -38,7 +38,7 @@ class ThreeColumn extends AbstractBlockLayout
     public function form(PhpRenderer $view, SiteRepresentation $site,
         SitePageRepresentation $page = null, SitePageBlockRepresentation $block = null
     ) {
-        $form = $this->formElementManager->get(TwoColumnForm::class);
+        $form = $this->formElementManager->get(ThreeColumnForm::class);
         $defaultSettings = [];
 
         $data = $block ? $block->data() + $defaultSettings : $defaultSettings;
