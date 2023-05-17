@@ -45,7 +45,12 @@ $(document).ready(function () {
     $("body").on("DOMNodeInserted", function() {
         $('input.anchor').charReplacer({
             replaceChar: ['[^a-zA-Z0-9_\\- ]', '\\s+', '^[-]+', '[-]+$'],
-            replaceWith: ['', '-', '', '']
+            replaceWith: ['', '-', '-', '-' ]
         })
+    })
+
+    $(document).on('input', 'input.anchor', function() {
+        let slug = $(this).val();
+        $(this).closest('.block-content').find('a').first().attr('id', slug).attr('name', slug)
     })
 })

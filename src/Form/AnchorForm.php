@@ -9,12 +9,11 @@ class AnchorForm extends Fieldset
     public function init()
     {
         $this->add([
-            'name' => 'o:block[__blockIndex__][o:data][anchor]',
+            'name' => 'o:block[__blockIndex__][o:data][anchor_id]',
             'type' => Element\Text::class,
             'options' => [
-                'label' => 'Anchor name', // @translate
+                'label' => 'Anchor', // @translate
                 'info' => '', // @translate
-                'class' => 'anchor'
             ],
             'attributes' => [
                 'class' => 'anchor'

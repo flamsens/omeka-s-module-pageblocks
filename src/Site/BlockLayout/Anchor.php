@@ -35,20 +35,26 @@ class Anchor extends AbstractBlockLayout
         SitePageBlockRepresentation $block = null
     ) {        
         $form = $this->formElementManager->get(AnchorForm::class);
-            
+
+        $anchor_id = '';
         if ($block && $block->data()) {
+            $anchor_id = $block->dataValue('anchor_id');
+
             $form->populateValues([
-                'o:block[__blockIndex__][o:data][anchor]' => $block->dataValue('anchor'),
+                'o:block[__blockIndex__][o:data][anchor_id]' => $anchor_id,
             ]);
         }
 
-        return $view->formCollection($form);
+        $output = $view->formCollection($form);
+        $output .= "<a name=\"{$anchor_id}\" id=\"{$anchor_id}\"></a>";
+
+        return $output;
     }
 
     public function render(PhpRenderer $view, SitePageBlockRepresentation $block): \Laminas\View\Helper\Partial|string
     {
         return $view->partial('common/block-layout/anchor', [
-            'anchor' => $block->dataValue('anchor')
+            'anchor_id' => $block->dataValue('anchor_id')
         ]);
     }
 }
